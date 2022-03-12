@@ -5,6 +5,8 @@
 Idea borrowed from ndb project:
 code.google.com/p/appengine-ndb-experiment/source/browse/ndb/ndb_test.py
 """
+from __future__ import print_function
+from __future__ import absolute_import
 
 
 import os
@@ -12,7 +14,7 @@ import subprocess
 import sys
 import unittest
 
-import test_utils
+from . import test_utils
 
 
 MODULES_TO_TEST = ['utils']
@@ -40,7 +42,7 @@ def fix_up_path():
   # is not on the path, then 'which' will return None.
   dev_appserver_on_path = test_utils.which('dev_appserver.py')
   if dev_appserver_on_path is None or not os.path.exists(dev_appserver_on_path):
-    print >>sys.stderr, NO_DEVAPPSERVER_TEMPLATE % (dev_appserver_on_path,)
+    print(NO_DEVAPPSERVER_TEMPLATE % (dev_appserver_on_path,), file=sys.stderr)
     raise SystemExit(1)
 
   real_path = os.path.realpath(dev_appserver_on_path)

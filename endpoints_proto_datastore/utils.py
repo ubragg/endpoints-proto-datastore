@@ -6,6 +6,7 @@ The methods here are not specific to NDB or DB (the datastore APIs) and can
 be used by utility methods in the datastore API specific code.
 """
 
+from builtins import object
 __all__ = ['GeoPtMessage', 'MessageFieldsSchema', 'UserMessage',
            'method', 'positional', 'query_method']
 
@@ -105,7 +106,7 @@ def _DictToTuple(to_sort):
   Returns:
     A tuple containing the dictionary keys, sorted by value.
   """
-  items = to_sort.items()
+  items = list(to_sort.items())
   items.sort(key=lambda pair: pair[1])
   return tuple(pair[0] for pair in items)
 
@@ -447,5 +448,5 @@ class _EPDProtoJson(protojson.EndpointsProtoJson):
     """
     result = super(_EPDProtoJson, self)._ProtoJson__decode_dictionary(
         message_type, msg_dictionary)
-    result._Message__decoded_fields = msg_dictionary.keys()
+    result._Message__decoded_fields = list(msg_dictionary.keys())
     return result
